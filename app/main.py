@@ -321,3 +321,12 @@ def random_title():
 @app.get("/healthz")
 def healthz():
     return {"ok": True}
+
+
+# Starlette 1.6 stopped deriving HEAD from GET, so every page answered 405 to a
+# HEAD request - which is what most uptime monitors and link crawlers send
+# first. Mirror GET onto HEAD for every route; the server still omits the body.
+for _route in app.routes:
+    _methods = getattr(_route, "methods", None)
+    if _methods and "GET" in _methods:
+        _methods.add("HEAD")
