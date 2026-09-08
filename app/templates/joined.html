@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}You're in &mdash; I Have No Idea What I Do Anymore{% endblock %}
+
+{% block body %}
+<section>
+  <div class="wrap narrow">
+    <p class="kicker">Profile {{ '%03d'|format(p.id) }} created</p>
+    <h2 class="display" style="font-size:clamp(38px,7vw,68px);margin:0 0 20px">
+      You're in. You still can't explain it,
+      but at least now it's <span style="color:var(--signal);font-style:italic">on a page</span>.
+    </h2>
+
+    <div class="machine" style="box-shadow:10px 10px 0 var(--acid);margin:34px 0">
+      <p class="kicker" style="color:#8F887A">Your official designation</p>
+      <div class="machine-out" style="min-height:0">
+        {{ plurality_label }} &mdash; {{ p.plurality }}&times; plural</div>
+      <p style="font-family:var(--mono);font-size:13px;color:#B9B2A2;margin:0">
+        {{ plurality_blurb }}</p>
+    </div>
+
+    <div style="border:2px solid var(--ink);padding:26px;margin-bottom:26px">
+      <h4 style="font-family:var(--mono);font-size:11px;letter-spacing:.16em;
+                 text-transform:uppercase;color:var(--muted);margin:0 0 12px">
+        Your profile</h4>
+      <p style="margin:0 0 18px;font-family:var(--mono);font-size:14px;word-break:break-all">
+        <a href="/p/{{ p.slug }}">{{ site_url }}/p/{{ p.slug }}</a></p>
+      <a class="btn btn-signal btn-sm" href="/p/{{ p.slug }}">See how it looks &rarr;</a>
+    </div>
+
+    <div style="border:2px solid var(--signal);background:#FFEDE7;padding:26px">
+      <h4 style="font-family:var(--mono);font-size:11px;letter-spacing:.16em;
+                 text-transform:uppercase;color:var(--signal);margin:0 0 12px">
+        Save this link &mdash; it's the only key</h4>
+      <p style="margin:0 0 14px;font-size:14.5px">
+        There are no passwords here. This link is how you edit or delete your
+        profile later. We've emailed it to you as well. If you lose it, we
+        genuinely can't get it back for you.
+      </p>
+      <p style="margin:0;font-family:var(--mono);font-size:13px;word-break:break-all">
+        <a href="/edit/{{ p.slug }}?token={{ token }}">{{ site_url }}/edit/{{ p.slug }}?token={{ token }}</a>
+      </p>
+    </div>
+
+    <p style="margin-top:36px">
+      <a class="btn btn-ghost" href="/directory">Go and look at everyone else &rarr;</a></p>
+  </div>
+</section>
+{% endblock %}

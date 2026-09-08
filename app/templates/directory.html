@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block title %}The Directory &mdash; I Have No Idea What I Do Anymore{% endblock %}
+{% block desc %}Plural, AI-native people who used to have one very specific job. Browse by what they were, what they do now, and whether they're taking work.{% endblock %}
+
+{% block body %}
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <p class="kicker">{{ count }} {{ 'person' if count == 1 else 'people' }} who can't answer the question</p>
+      <h2>The Directory</h2>
+      <p class="lede" style="font-size:17px">
+        Filter by the job they had, the things they do now, or whether
+        they're actually taking work. Nobody's email is shown &mdash; messages
+        get forwarded.
+      </p>
+    </div>
+
+    <form class="filters" method="get" action="/directory">
+      <div>
+        <label for="f-was">They used to be</label>
+        <select id="f-was" name="was">
+          <option value="">Anything</option>
+          {% for j in tax.FORMER_LIVES %}
+            <option value="{{ j }}" {{ 'selected' if was == j }}>{{ j }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div>
+        <label for="f-does">They now</label>
+        <select id="f-does" name="does">
+          <option value="">Anything</option>
+          {% for d in tax.NOW_DOING %}
+            <option value="{{ d }}" {{ 'selected' if does == d }}>{{ d }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div>
+        <label for="f-open">Open to</label>
+        <select id="f-open" name="open_to">
+          <option value="">Anything</option>
+          {% for o in tax.OPEN_TO %}
+            <option value="{{ o }}" {{ 'selected' if open_to == o }}>{{ o }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div>
+        <label for="f-q">Search</label>
+        <input id="f-q" type="text" name="q" value="{{ q }}" placeholder="name, tool, anything">
+      </div>
+      <div style="flex:0 0 auto;display:flex;gap:8px">
+        <button class="btn btn-sm btn-signal" type="submit">Filter</button>
+        {% if was or does or open_to or q %}
+          <a class="btn btn-sm btn-ghost" href="/directory">Clear</a>{% endif %}
+      </div>
+    </form>
+
+    {% if profiles %}
+      <div class="grid">
+        {% for p in profiles %}{% include "_card.html" %}{% endfor %}
+      </div>
+    {% else %}
+      <div class="empty">
+        <h3>Nobody matches that.</h3>
+        <p style="color:var(--muted);margin:0 0 22px">
+          Which is either a gap in the market or a filter too far.</p>
+        <a class="btn btn-signal" href="/join">Add yourself &rarr;</a>
+        <a class="btn btn-ghost" href="/directory">Clear filters</a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

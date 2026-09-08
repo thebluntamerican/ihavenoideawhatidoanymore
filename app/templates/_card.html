@@ -1,0 +1,13 @@
+<a class="card" href="/p/{{ p.slug }}">
+  {% if p.hireable %}<span class="stamp hire">Available</span>
+  {% else %}<span class="stamp">{{ p.plurality }}&times; plural</span>{% endif %}
+  <div class="was">Formerly {{ p.former_life or 'unclear' }}</div>
+  <h3>{{ p.name }}</h3>
+  {% if p.headline %}<p class="head">{{ p.headline }}</p>{% endif %}
+  <div class="doing">
+    {% for d in p.now_doing[:3] %}&rsaquo; {{ d }}<br>{% endfor %}
+    {% if p.now_doing|length > 3 %}
+      <span style="opacity:.65">&rsaquo; &hellip;and {{ p.now_doing|length - 3 }} more</span>
+    {% endif %}
+  </div>
+</a>

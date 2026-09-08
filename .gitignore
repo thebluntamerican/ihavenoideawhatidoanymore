@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+.venv/
+.env
+noidea.db
+.DS_Store

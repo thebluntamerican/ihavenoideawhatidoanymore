@@ -1,0 +1,187 @@
+{% extends "base.html" %}
+{% set editing = editing|default(none) %}
+{% block title %}{{ 'Edit your profile' if editing else 'Add yourself' }} &mdash; I Have No Idea What I Do Anymore{% endblock %}
+
+{% macro checked(field, value) -%}
+  {% if value in (data.get(field) or []) %}checked{% endif %}
+{%- endmacro %}
+
+{% block body %}
+<section>
+  <div class="wrap narrow">
+
+    <p class="kicker">{{ 'Editing' if editing else 'Takes about three minutes' }}</p>
+    <h2 class="display" style="font-size:clamp(36px,7vw,62px);margin:0 0 16px">
+      {% if editing %}Change your profile{% else %}Say what you actually do{% endif %}
+    </h2>
+    <p class="lede" style="margin-bottom:36px">
+      Answer honestly rather than impressively. The whole point of this place
+      is that the impressive version doesn't exist yet.
+    </p>
+
+    {% if errors %}
+      <div class="errors">
+        {% for e in errors %}<p>{{ e }}</p>{% endfor %}
+      </div>
+    {% endif %}
+
+    <form method="post"
+          action="{{ '/edit/' ~ editing.slug if editing else '/join' }}">
+      {% if editing %}<input type="hidden" name="token" value="{{ token }}">{% endif %}
+
+      <div class="hp" aria-hidden="true">
+        <label for="j-website">Leave this empty</label>
+        <input id="j-website" type="text" name="website_url" tabindex="-1" autocomplete="off">
+      </div>
+
+      <fieldset class="fieldset">
+        <div class="row">
+          <div style="margin-bottom:20px">
+            <label for="j-name">Your name</label>
+            <input id="j-name" type="text" name="name" required maxlength="120"
+                   value="{{ data.get('name','') }}">
+          </div>
+          <div style="margin-bottom:20px">
+            <label for="j-loc">Where you are <span class="help">Optional</span></label>
+            <input id="j-loc" type="text" name="location" maxlength="120"
+                   placeholder="London, remote, unclear"
+                   value="{{ data.get('location','') }}">
+          </div>
+        </div>
+
+        <div style="margin-bottom:20px">
+          <label for="j-head">One line about you</label>
+          <p class="help">The honest version of "so what do you do?" &mdash;
+            the one you'd give a friend, not a recruiter.</p>
+          <input id="j-head" type="text" name="headline" maxlength="200"
+                 placeholder="Ex-litigator who now builds the tools the firm won't buy."
+                 value="{{ data.get('headline','') }}">
+        </div>
+      </fieldset>
+
+      <fieldset class="fieldset">
+        <div class="row">
+          <div style="margin-bottom:20px">
+            <label for="j-was">What you used to be</label>
+            <select id="j-was" name="former_life">
+              <option value="">Pick one</option>
+              {% for j in tax.FORMER_LIVES %}
+                <option value="{{ j }}"
+                  {{ 'selected' if data.get('former_life') == j }}>{{ j }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div style="margin-bottom:20px">
+            <label for="j-was-d">For how long, roughly <span class="help">Optional</span></label>
+            <input id="j-was-d" type="text" name="former_life_detail" maxlength="200"
+                   placeholder="11 years, two firms, one burnout"
+                   value="{{ data.get('former_life_detail','') }}">
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset class="fieldset">
+        <label>What you actually do now</label>
+        <p class="help">Tick everything that's true in a normal week. This sets
+          your plurality score, which is the only score here and means nothing.</p>
+        <div class="pick">
+          {% for d in tax.NOW_DOING %}
+            {% set id = 'nd' ~ loop.index %}
+            <input type="checkbox" id="{{ id }}" name="now_doing" value="{{ d }}"
+                   {{ checked('now_doing', d) }}>
+            <label for="{{ id }}">{{ d }}</label>
+          {% endfor %}
+        </div>
+      </fieldset>
+
+      <fieldset class="fieldset">
+        <label>What's open in your browser</label>
+        <p class="help">Optional, and slightly revealing.</p>
+        <div class="pick">
+          {% for t in tax.STACK %}
+            {% set id = 'st' ~ loop.index %}
+            <input type="checkbox" id="{{ id }}" name="stack" value="{{ t }}"
+                   {{ checked('stack', t) }}>
+            <label for="{{ id }}">{{ t }}</label>
+          {% endfor %}
+        </div>
+      </fieldset>
+
+      <fieldset class="fieldset">
+        <div style="margin-bottom:20px">
+          <label for="j-super">You're unreasonably good at&hellip;</label>
+          <textarea id="j-super" name="superpower" maxlength="600"
+            placeholder="Reading a 90-page contract and turning it into something a machine can act on.">{{ data.get('superpower','') }}</textarea>
+        </div>
+        <div style="margin-bottom:20px">
+          <label for="j-cant">You still completely cannot&hellip;</label>
+          <p class="help">Keep this one honest. It's the best field on the site.</p>
+          <textarea id="j-cant" name="still_cant" maxlength="600"
+            placeholder="Explain my job to my mother. Or CSS.">{{ data.get('still_cant','') }}</textarea>
+        </div>
+      </fieldset>
+
+      <fieldset class="fieldset">
+        <label>What you're open to</label>
+        <p class="help">If you tick any kind of work, a "hire them" form appears
+          on your profile. If you tick only the last one, it doesn't.</p>
+        <div class="pick">
+          {% for o in tax.OPEN_TO %}
+            {% set id = 'op' ~ loop.index %}
+            <input type="checkbox" id="{{ id }}" name="open_to" value="{{ o }}"
+                   {{ checked('open_to', o) }}>
+            <label for="{{ id }}">{{ o }}</label>
+          {% endfor %}
+        </div>
+      </fieldset>
+
+      <fieldset class="fieldset">
+        <div style="margin-bottom:20px">
+          <label for="j-email">Your email</label>
+          <p class="help"><strong>Never shown on the site.</strong> Messages are
+            forwarded to it, and it's how you get your edit link.</p>
+          <input id="j-email" type="email" name="contact_email" required maxlength="200"
+                 value="{{ data.get('contact_email','') }}">
+        </div>
+        <div class="row">
+          <div style="margin-bottom:20px">
+            <label for="j-site">Website <span class="help">Optional</span></label>
+            <input id="j-site" type="url" name="link_site" maxlength="300"
+                   value="{{ data.get('link_site','') }}">
+          </div>
+          <div style="margin-bottom:20px">
+            <label for="j-li">LinkedIn <span class="help">Optional</span></label>
+            <input id="j-li" type="url" name="link_linkedin" maxlength="300"
+                   value="{{ data.get('link_linkedin','') }}">
+          </div>
+        </div>
+        <div style="margin-bottom:20px">
+          <label for="j-x">X <span class="help">Optional</span></label>
+          <input id="j-x" type="url" name="link_x" maxlength="300"
+                 value="{{ data.get('link_x','') }}">
+        </div>
+      </fieldset>
+
+      <div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap">
+        <button class="btn btn-signal" type="submit">
+          {{ 'Save changes' if editing else 'Put me in the directory →' }}</button>
+        {% if editing %}
+          <a class="btn btn-ghost btn-sm" href="/p/{{ editing.slug }}">Cancel</a>
+        {% endif %}
+      </div>
+    </form>
+
+    {% if editing %}
+    <form method="post" action="/edit/{{ editing.slug }}"
+          style="margin-top:44px;padding-top:26px;border-top:1px solid var(--line)">
+      <input type="hidden" name="token" value="{{ token }}">
+      <input type="hidden" name="delete_me" value="yes">
+      <p style="font-family:var(--mono);font-size:12.5px;color:var(--muted);margin:0 0 12px">
+        Had enough? This removes your profile from the directory immediately.</p>
+      <button class="btn btn-sm btn-ghost" type="submit">Take me off the site</button>
+    </form>
+    {% endif %}
+
+  </div>
+</section>
+{% endblock %}

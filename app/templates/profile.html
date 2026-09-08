@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+{% block title %}{{ p.name }} &mdash; I Have No Idea What I Do Anymore{% endblock %}
+{% block desc %}{{ p.name }} was {{ p.former_life }}. Now: {{ p.now_doing|join(', ') }}.{% endblock %}
+
+{% block body %}
+<section>
+  <div class="wrap" style="max-width:900px">
+
+    {% if sent %}
+    <div class="banner">
+      Message sent. It went straight to {{ p.name }}'s inbox with your address
+      as the reply-to &mdash; so the next email comes from them, not from us.
+    </div>
+    {% endif %}
+
+    <p style="margin-bottom:20px">
+      <a class="btn btn-sm btn-ghost" href="/directory">&larr; Back to the directory</a></p>
+
+    <div class="dossier">
+      <div class="dossier-head">
+        <p class="kicker" style="margin:0">
+          Profile {{ '%03d'|format(p.id) }} &nbsp;&middot;&nbsp;
+          {{ p.location or 'Location undisclosed' }}</p>
+        <h1 class="display">{{ p.name }}</h1>
+        {% if p.headline %}
+          <p class="lede" style="margin:0">{{ p.headline }}</p>{% endif %}
+        <div class="transition">
+          <span class="was">{{ p.former_life or 'Something specific' }}</span>
+          <span class="arrow">&rarr;</span>
+          <span class="now">{{ p.plurality }} things at once</span>
+        </div>
+      </div>
+
+      <div class="dossier-body">
+        <div class="field">
+          <h4>Plurality score</h4>
+          <div class="score">
+            <b>{{ p.plurality }}</b>
+            <div>
+              <div style="font-size:20px;line-height:1.2">{{ plurality_label }}</div>
+              <div style="font-family:var(--mono);font-size:12px;color:var(--muted);
+                          line-height:1.5;margin-top:4px">{{ plurality_blurb }}</div>
+            </div>
+          </div>
+          <div class="score-bar">
+            {% for i in range(1, 11) %}
+              <i class="{{ 'on' if i <= p.plurality }}"></i>{% endfor %}
+          </div>
+        </div>
+
+        <div class="field">
+          <h4>The job they used to have</h4>
+          <p style="font-family:var(--serif);font-size:30px;line-height:1.1;margin:0 0 8px">
+            {{ p.former_life or 'Unclear, even to them' }}</p>
+          {% if p.former_life_detail %}
+            <p style="font-size:14.5px;color:#3A372F">{{ p.former_life_detail }}</p>
+          {% endif %}
+        </div>
+
+        <div class="field" style="grid-column:1 / -1;border-right:0">
+          <h4>What they actually do now</h4>
+          <div class="chips">
+            {% for d in p.now_doing %}<span class="chip on">{{ d }}</span>{% endfor %}
+          </div>
+        </div>
+
+        {% if p.superpower %}
+        <div class="field">
+          <h4>Unreasonably good at</h4>
+          <p>{{ p.superpower }}</p>
+        </div>
+        {% endif %}
+
+        {% if p.still_cant %}
+        <div class="field">
+          <h4>Still completely cannot</h4>
+          <p>{{ p.still_cant }}</p>
+        </div>
+        {% endif %}
+
+        {% if p.stack %}
+        <div class="field" style="grid-column:1 / -1;border-right:0">
+          <h4>Open in their browser right now</h4>
+          <div class="chips">
+            {% for t in p.stack %}<span class="chip">{{ t }}</span>{% endfor %}
+          </div>
+        </div>
+        {% endif %}
+
+        <div class="field" style="grid-column:1 / -1;border-right:0;border-bottom:0">
+          <h4>Open to</h4>
+          <div class="chips" style="margin-bottom:16px">
+            {% for o in p.open_to %}<span class="chip on">{{ o }}</span>{% endfor %}
+          </div>
+          {% if p.link_site or p.link_linkedin or p.link_x %}
+          <div style="display:flex;gap:14px;flex-wrap:wrap;font-family:var(--mono);font-size:12.5px">
+            {% if p.link_site %}<a href="{{ p.link_site }}" rel="nofollow noopener"
+              target="_blank">Website &nearr;</a>{% endif %}
+            {% if p.link_linkedin %}<a href="{{ p.link_linkedin }}" rel="nofollow noopener"
+              target="_blank">LinkedIn &nearr;</a>{% endif %}
+            {% if p.link_x %}<a href="{{ p.link_x }}" rel="nofollow noopener"
+              target="_blank">X &nearr;</a>{% endif %}
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    {% if p.hireable %}
+    <div style="border:2px solid var(--ink);border-top:0;background:var(--paper-2);
+                padding:32px" id="hire">
+      <p class="kicker" style="margin-bottom:6px">Hire them</p>
+      <h3 style="font-family:var(--serif);font-size:32px;margin:0 0 6px">
+        Send {{ p.name.split(' ')[0] }} a message</h3>
+      <p class="note" style="margin:0 0 24px">
+        Their email address isn't published anywhere on this site. We forward
+        your message and set your address as the reply-to, so they can answer
+        you directly &mdash; or not.
+      </p>
+
+      <form method="post" action="/contact/{{ p.slug }}">
+        <div class="hp" aria-hidden="true">
+          <label for="c-website">Leave this empty</label>
+          <input id="c-website" type="text" name="website_url" tabindex="-1" autocomplete="off">
+        </div>
+        <div class="row">
+          <div style="margin-bottom:18px">
+            <label for="c-name">Your name</label>
+            <input id="c-name" type="text" name="from_name" required maxlength="120">
+          </div>
+          <div style="margin-bottom:18px">
+            <label for="c-email">Your email</label>
+            <input id="c-email" type="email" name="from_email" required maxlength="200">
+          </div>
+        </div>
+        <div style="margin-bottom:18px">
+          <label for="c-org">Company or project <span class="help">Optional</span></label>
+          <input id="c-org" type="text" name="from_org" maxlength="160">
+        </div>
+        <div style="margin-bottom:22px">
+          <label for="c-msg">What you'd want them to do</label>
+          <p class="help">Be specific. This crowd has an unusually low tolerance
+            for "exciting opportunity, let's jump on a quick call".</p>
+          <textarea id="c-msg" name="message" required minlength="10"
+                    maxlength="4000"></textarea>
+        </div>
+        <button class="btn btn-signal" type="submit">Send it &rarr;</button>
+      </form>
+    </div>
+    {% else %}
+    <div style="border:2px dashed var(--line);border-top:0;padding:26px 32px">
+      <p style="margin:0;font-family:var(--mono);font-size:13px;color:var(--muted)">
+        {{ p.name }} isn't taking work enquiries &mdash; they're here for the company.
+      </p>
+    </div>
+    {% endif %}
+
+  </div>
+</section>
+{% endblock %}
