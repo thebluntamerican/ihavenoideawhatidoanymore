@@ -26,8 +26,8 @@
           <p class="lede" style="margin:0">{{ p.headline }}</p>{% endif %}
         <div class="transition">
           <span class="was">{{ p.former_life or 'Something specific' }}</span>
-          <span class="arrow">&rarr;</span>
-          <span class="now">{{ p.plurality }} things at once</span>
+          <span class="arrow">&plus;</span>
+          <span class="now">{{ p.plurality }} things not in the job description</span>
         </div>
       </div>
 
@@ -49,16 +49,16 @@
         </div>
 
         <div class="field">
-          <h4>The job they used to have</h4>
+          <h4>The job title</h4>
           <p style="font-family:var(--serif);font-size:30px;line-height:1.1;margin:0 0 8px">
-            {{ p.former_life or 'Unclear, even to them' }}</p>
+            {{ p.former_life or 'No clean name' }}</p>
           {% if p.former_life_detail %}
             <p style="font-size:14.5px;color:#3A372F">{{ p.former_life_detail }}</p>
           {% endif %}
         </div>
 
         <div class="field" style="grid-column:1 / -1;border-right:0">
-          <h4>What they actually do now</h4>
+          <h4>What they also do</h4>
           <div class="chips">
             {% for d in p.now_doing %}<span class="chip on">{{ d }}</span>{% endfor %}
           </div>

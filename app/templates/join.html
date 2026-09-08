@@ -62,7 +62,7 @@
       <fieldset class="fieldset">
         <div class="row">
           <div style="margin-bottom:20px">
-            <label for="j-was">What you used to be</label>
+            <label for="j-was">Your job title</label>
             <select id="j-was" name="former_life">
               <option value="">Pick one</option>
               {% for j in tax.FORMER_LIVES %}
@@ -72,16 +72,16 @@
             </select>
           </div>
           <div style="margin-bottom:20px">
-            <label for="j-was-d">For how long, roughly <span class="help">Optional</span></label>
+            <label for="j-was-d">Anything to add about it <span class="help">Optional</span></label>
             <input id="j-was-d" type="text" name="former_life_detail" maxlength="200"
-                   placeholder="11 years, two firms, one burnout"
+                   placeholder="11 years, two firms, still read the small print"
                    value="{{ data.get('former_life_detail','') }}">
           </div>
         </div>
       </fieldset>
 
       <fieldset class="fieldset">
-        <label>What you actually do now</label>
+        <label>What you also do</label>
         <p class="help">Tick everything that's true in a normal week. This sets
           your plurality score, which is the only score here and means nothing.</p>
         <div class="pick">

@@ -85,12 +85,8 @@ def home(request: Request):
             select(Profile).where(Profile.visible.is_(True))
             .order_by(Profile.created_at.desc()).limit(6)
         ).all()
-        avg = s.scalar(select(func.avg(Profile.plurality))
-                       .where(Profile.visible.is_(True)))
     return templates.TemplateResponse(request, "index.html", _ctx(
-        request, total=total, recent=recent,
-        avg_plurality=round(avg or 0, 1),
-    ))
+        request, total=total, recent=recent))
 
 
 @app.get("/directory", response_class=HTMLResponse)

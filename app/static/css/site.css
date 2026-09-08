@@ -3,13 +3,13 @@
 
 :root{
   --ink:#12110F;
-  --paper:#F2EEE4;
-  --paper-2:#E8E2D4;
+  --paper:#F8F6F1;
+  --paper-2:#EFECE4;
   --signal:#FF4A1C;
   --acid:#D9FF3D;
   --blue:#2148FF;
   --muted:#847E70;
-  --line:#D6CFBE;
+  --line:#DFD9CD;
   --serif:"Instrument Serif",Georgia,"Times New Roman",serif;
   --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
   --sans:"Inter",ui-sans-serif,system-ui,-apple-system,sans-serif;
@@ -39,12 +39,12 @@ img{max-width:100%}
   font-family:var(--mono);font-size:11px;letter-spacing:.18em;
   text-transform:uppercase;color:var(--muted);margin:0 0 14px;
 }
-.lede{font-size:19px;line-height:1.55;max-width:56ch;color:#2C2A25}
+.lede{font-size:20px;line-height:1.55;max-width:54ch;color:#2C2A25}
 .mono{font-family:var(--mono)}
 
 /* ---------- nav ---------- */
 header.top{
-  position:sticky;top:0;z-index:50;background:rgba(242,238,228,.86);
+  position:sticky;top:0;z-index:50;background:rgba(248,246,241,.86);
   backdrop-filter:blur(10px);border-bottom:1px solid var(--line);
 }
 header.top .wrap{display:flex;align-items:center;gap:22px;height:60px}
@@ -77,55 +77,29 @@ header.top nav a:hover{border-bottom-color:var(--signal)}
 .btn-sm{padding:9px 15px;font-size:12px;box-shadow:4px 4px 0 var(--ink)}
 
 /* ---------- hero ---------- */
-.hero{position:relative;padding:76px 0 0;overflow:hidden}
-#driftCanvas{
-  position:absolute;inset:0;width:100%;height:100%;
-  opacity:.5;pointer-events:none;
-}
+.hero{padding:76px 0 8px}
 .hero .wrap{position:relative;z-index:2}
 .hero h1{
-  font-family:var(--serif);font-size:clamp(46px,9.2vw,124px);
-  line-height:.9;letter-spacing:-.025em;margin:0 0 26px;max-width:16ch;
+  font-family:var(--serif);font-size:clamp(38px,5.6vw,76px);
+  line-height:.94;letter-spacing:-.025em;margin:0 0 32px;
+  /* No max-width: `balance` already shortens the lines to even them out, so
+     capping the box as well made the headline render NARROWER than the
+     paragraph beneath it. Let it use the column and balance do the rest. */
+  text-wrap:balance;
 }
 .hero h1 .swap{
   display:inline-block;position:relative;color:var(--signal);font-style:italic;
-  min-width:2ch;
 }
 .hero h1 .swap::after{
   content:"";position:absolute;left:0;right:0;bottom:.1em;height:3px;
   background:var(--signal);opacity:.35;
 }
-.glitch{animation:glitch .28s steps(2) 1}
-@keyframes glitch{
-  0%{transform:translate(0,0);opacity:1}
-  25%{transform:translate(-3px,1px);opacity:.72}
-  50%{transform:translate(2px,-2px);opacity:.9}
-  75%{transform:translate(-1px,2px);opacity:.65}
-  100%{transform:translate(0,0);opacity:1}
-}
-.hero-cta{display:flex;gap:14px;flex-wrap:wrap;margin:32px 0 0}
-.hero-stats{
-  display:flex;gap:34px;flex-wrap:wrap;margin:44px 0 0;
-  padding:20px 0;border-top:1px solid var(--line);
-}
-.hero-stats div{font-family:var(--mono);font-size:12px;color:var(--muted)}
-.hero-stats b{
-  display:block;font-family:var(--serif);font-size:34px;color:var(--ink);
-  line-height:1;margin-bottom:4px;
-}
+/* The paragraph should sit clearly INSIDE the headline's width. Matching the
+   two edges is impossible (different faces and sizes, so different ch widths)
+   and a near-match reads as a mistake - a clear step in reads as intent. */
+.hero .lede{max-width:46ch}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap;margin:36px 0 0}
 
-/* ---------- ticker ---------- */
-.ticker{
-  margin-top:56px;border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);
-  background:var(--acid);overflow:hidden;white-space:nowrap;padding:11px 0;
-}
-.ticker-track{display:inline-flex;gap:0;animation:slide 42s linear infinite}
-.ticker span{
-  font-family:var(--mono);font-size:13px;font-weight:600;
-  letter-spacing:.03em;padding:0 22px;
-}
-.ticker span::after{content:"→";margin-left:22px;opacity:.4}
-@keyframes slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
 /* ---------- sections ---------- */
 section{padding:84px 0}
@@ -145,13 +119,6 @@ section{padding:84px 0}
   font-family:var(--serif);font-size:clamp(28px,5.4vw,58px);line-height:1.02;
   margin:6px 0 22px;min-height:1.9em;color:var(--acid);
 }
-.machine-doing{
-  font-family:var(--mono);font-size:12.5px;color:#B9B2A2;line-height:2;
-  margin-bottom:26px;min-height:5.2em;
-}
-.machine-doing i{font-style:normal;color:var(--paper);border-bottom:1px solid var(--signal)}
-.machine .btn{background:var(--acid);border-color:var(--acid);box-shadow:none;color:var(--ink)}
-.machine .btn:hover{transform:none;background:var(--paper);border-color:var(--paper)}
 
 /* ---------- cards ---------- */
 .grid{display:grid;gap:22px;grid-template-columns:repeat(auto-fill,minmax(310px,1fr))}
@@ -281,19 +248,14 @@ footer a{color:var(--ink)}
 
 /* ---------- responsive ---------- */
 @media (max-width:760px){
-  /* The drifting words sit behind the copy, but on a narrow column they
-     still fight it for attention. Pull them back. */
-  #driftCanvas{opacity:.22}
   .dossier-body{grid-template-columns:1fr}
   .field:nth-child(odd){border-right:0}
   .row{grid-template-columns:1fr}
   section{padding:56px 0}
   .hero{padding-top:44px}
-  .hero-stats{gap:24px}
 }
 
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;
     transition-duration:.001ms!important}
-  .ticker-track{animation:none}
 }

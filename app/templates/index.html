@@ -3,113 +3,35 @@
 {% block body %}
 
 <div class="hero">
-  <canvas id="driftCanvas"
-    data-words="{{ (tax.FORMER_LIVES + tax.STACK)|join('|') }}"></canvas>
   <div class="wrap">
-    <p class="kicker">A directory of people whose job titles stopped working</p>
+    <p class="kicker">The platform for forward-deployed operators</p>
     <h1>I have no idea what I <span class="swap">do</span> anymore.</h1>
+
     <p class="lede">
-      You used to be a lawyer. Or a CMO. Or in sales. Something specific,
-      something you could say at a dinner party. Then you got good at this,
-      and the edges dissolved, and now you ship software on Tuesday and
-      run the numbers on Wednesday and nobody has a word for that yet.
+      Companies are not adjusting to the pace of AI while talent and skills are
+      changing. People who now hold two roles &mdash; theirs, and AI &mdash; are
+      confused. There are no specific opportunities for forward-deployed
+      marketing, finance, operations or supply chain people. Some would say:
+      I have no idea what I do anymore.
     </p>
+
     <p class="lede" style="margin-top:18px">
-      This is where those people are. The rest of the world will catch up
-      eventually. Until then, we can hire each other.
+      Well &mdash; while the rest of the world catches up, now you have a place to
+      meet, and maybe even hire each other.
     </p>
 
     <div class="hero-cta">
       <a class="btn btn-signal" href="/join">Add yourself &rarr;</a>
       <a class="btn" href="/directory">See who's here</a>
     </div>
-
-    <div class="hero-stats">
-      <div><b>{{ total }}</b>plural people</div>
-      <div><b>{{ avg_plurality }}</b>average things done per person</div>
-      <div><b>0</b>agreed job titles</div>
-    </div>
-  </div>
-
-  <div class="ticker">
-    <div class="ticker-track">
-      {% for _ in range(2) %}
-        {% for job in tax.FORMER_LIVES %}<span>{{ job }}</span>{% endfor %}
-      {% endfor %}
-    </div>
   </div>
 </div>
-
-<section>
-  <div class="wrap">
-    <div class="section-head">
-      <p class="kicker">What happened</p>
-      <h2>The job didn't disappear. It multiplied.</h2>
-    </div>
-
-    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr))">
-      <div style="border-left:3px solid var(--signal);padding-left:20px">
-        <h3 style="font-family:var(--serif);font-size:26px;margin:0 0 10px">
-          You learned to build</h3>
-        <p style="margin:0;color:#3A372F">
-          Not in a bootcamp. On a Sunday, out of impatience. The thing you
-          used to brief an agency for took you an afternoon, and something
-          in your head permanently rearranged itself.</p>
-      </div>
-      <div style="border-left:3px solid var(--blue);padding-left:20px">
-        <h3 style="font-family:var(--serif);font-size:26px;margin:0 0 10px">
-          The lanes stopped holding</h3>
-        <p style="margin:0;color:#3A372F">
-          Legal, marketing, ops, engineering &mdash; those were containers for
-          scarce skills. When the skill stops being scarce, the container
-          stops meaning anything.</p>
-      </div>
-      <div style="border-left:3px solid var(--ink);padding-left:20px">
-        <h3 style="font-family:var(--serif);font-size:26px;margin:0 0 10px">
-          Now you can't answer the question</h3>
-        <p style="margin:0;color:#3A372F">
-          "So what do you do?" You have an honest answer and it takes four
-          minutes, so you give the dishonest one that takes four seconds
-          and feel slightly worse.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section style="padding-top:0">
-  <div class="wrap narrow">
-    <div class="machine" id="machine"
-         data-pool="{{ (tax.FORMER_LIVES)|join('|') }}">
-      <p class="kicker">Job title generator &mdash; as good as any other</p>
-      <div class="machine-out">&hellip;</div>
-      <div class="machine-doing"></div>
-      <button class="btn" data-spin type="button">Give me another one</button>
-    </div>
-  </div>
-</section>
-
-<section style="background:var(--ink);color:var(--paper)">
-  <div class="wrap narrow" style="text-align:center">
-    <p class="kicker" style="color:#8F887A">The actual point</p>
-    <h2 class="display" style="font-size:clamp(34px,6vw,62px);margin:0 0 22px">
-      We're early. That's lonely, and it's also
-      <span style="color:var(--acid);font-style:italic">an advantage</span>.
-    </h2>
-    <p class="lede" style="color:#C9C2B2;margin:0 auto 30px">
-      Most hiring still runs on job titles, so it can't see you. It'll take
-      years to fix. In the meantime the people who <em>can</em> see you are
-      the other people it can't see. So put yourself somewhere findable, and
-      when you need someone who does four jobs at once, look here first.
-    </p>
-    <a class="btn btn-acid" href="/join">Put yourself in the directory</a>
-  </div>
-</section>
 
 {% if recent %}
 <section>
   <div class="wrap">
     <div class="section-head">
-      <p class="kicker">Recently confused</p>
+      <p class="kicker">Just arrived</p>
       <h2>The most recent arrivals</h2>
     </div>
     <div class="grid">
@@ -133,5 +55,3 @@
 {% endif %}
 
 {% endblock %}
-
-{% block scripts %}<script src="/static/js/hero.js" defer></script>{% endblock %}

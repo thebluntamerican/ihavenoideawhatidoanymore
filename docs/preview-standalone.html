@@ -3,137 +3,271 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-/* This page commits to one visual world - cream paper, black ink, two accents.
-   It is a faithful copy of the real site's stylesheet, so it stays single-theme
-   on purpose and paints every colour explicitly. */
+/* Verbatim copy of the live stylesheet, so this preview and the real site
+   cannot drift apart. Single-theme on purpose: cream paper, black ink. */
+/* ihavenoideawhatidoanymore.com
+   Two voices fighting: a human serif and a machine mono. That's the whole idea. */
+
 :root{
-  --ink:#12110F; --paper:#F2EEE4; --paper-2:#E8E2D4;
-  --signal:#FF4A1C; --acid:#D9FF3D; --blue:#2148FF;
-  --muted:#847E70; --line:#D6CFBE;
+  --ink:#12110F;
+  --paper:#F8F6F1;
+  --paper-2:#EFECE4;
+  --signal:#FF4A1C;
+  --acid:#D9FF3D;
+  --blue:#2148FF;
+  --muted:#847E70;
+  --line:#DFD9CD;
   --serif:"Instrument Serif",Georgia,"Times New Roman",serif;
   --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
   --sans:"Inter",ui-sans-serif,system-ui,-apple-system,sans-serif;
   --shadow:6px 6px 0 var(--ink);
 }
+
 *{box-sizing:border-box}
-body{margin:0;background:var(--paper);color:var(--ink);
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
   font-family:var(--sans);font-size:16px;line-height:1.6;
-  -webkit-font-smoothing:antialiased;overflow-x:hidden}
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
 a{color:inherit}
+img{max-width:100%}
+
 .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
 .narrow{max-width:720px}
-.kicker{font-family:var(--mono);font-size:11px;letter-spacing:.18em;
-  text-transform:uppercase;color:var(--muted);margin:0 0 14px}
-.lede{font-size:19px;line-height:1.55;max-width:56ch;color:#2C2A25}
 
-.strip{background:var(--acid);border-bottom:2px solid var(--ink);
-  font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;
-  padding:9px 24px;text-align:center}
-header.top{position:sticky;top:0;z-index:50;background:rgba(242,238,228,.88);
-  backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+/* ---------- type ---------- */
+.display{
+  font-family:var(--serif);font-weight:400;line-height:.92;
+  letter-spacing:-.02em;margin:0;
+}
+.kicker{
+  font-family:var(--mono);font-size:11px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--muted);margin:0 0 14px;
+}
+.lede{font-size:20px;line-height:1.55;max-width:54ch;color:#2C2A25}
+.mono{font-family:var(--mono)}
+
+/* ---------- nav ---------- */
+header.top{
+  position:sticky;top:0;z-index:50;background:rgba(248,246,241,.86);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--line);
+}
 header.top .wrap{display:flex;align-items:center;gap:22px;height:60px}
-.brand{font-family:var(--mono);font-size:12px;font-weight:600;
-  text-decoration:none;white-space:nowrap}
+.brand{
+  font-family:var(--mono);font-size:12px;letter-spacing:.02em;
+  text-decoration:none;font-weight:600;white-space:nowrap;
+}
 .brand b{color:var(--signal)}
-header.top nav{margin-left:auto;display:flex;gap:20px}
-header.top nav a{font-family:var(--mono);font-size:12px;text-decoration:none;
-  letter-spacing:.04em;padding-bottom:2px;border-bottom:1.5px solid transparent}
+header.top nav{margin-left:auto;display:flex;gap:20px;align-items:center}
+header.top nav a{
+  font-family:var(--mono);font-size:12px;text-decoration:none;
+  letter-spacing:.04em;padding-bottom:2px;border-bottom:1.5px solid transparent;
+}
 header.top nav a:hover{border-bottom-color:var(--signal)}
 
-.btn{display:inline-block;font-family:var(--mono);font-size:13px;font-weight:600;
-  text-decoration:none;cursor:pointer;padding:13px 22px;border:2px solid var(--ink);
-  background:var(--paper);color:var(--ink);box-shadow:var(--shadow);
-  transition:transform .12s ease,box-shadow .12s ease}
+/* ---------- buttons ---------- */
+.btn{
+  display:inline-block;font-family:var(--mono);font-size:13px;font-weight:600;
+  letter-spacing:.02em;text-decoration:none;cursor:pointer;
+  padding:13px 22px;border:2px solid var(--ink);background:var(--paper);
+  color:var(--ink);box-shadow:var(--shadow);
+  transition:transform .12s ease,box-shadow .12s ease;
+}
 .btn:hover{transform:translate(3px,3px);box-shadow:3px 3px 0 var(--ink)}
-.btn:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+.btn:active{transform:translate(6px,6px);box-shadow:0 0 0 var(--ink)}
 .btn-signal{background:var(--signal);color:#fff}
 .btn-acid{background:var(--acid)}
 .btn-ghost{box-shadow:none;background:transparent}
 .btn-ghost:hover{transform:none;box-shadow:none;background:var(--ink);color:var(--paper)}
+.btn-sm{padding:9px 15px;font-size:12px;box-shadow:4px 4px 0 var(--ink)}
 
-.hero{position:relative;padding:76px 0 0;overflow:hidden}
-#driftCanvas{position:absolute;inset:0;width:100%;height:100%;opacity:.5;pointer-events:none}
+/* ---------- hero ---------- */
+.hero{padding:76px 0 8px}
 .hero .wrap{position:relative;z-index:2}
-.hero h1{font-family:var(--serif);font-size:clamp(46px,9.2vw,124px);line-height:.9;
-  letter-spacing:-.025em;margin:0 0 26px;max-width:16ch;text-wrap:balance}
-.hero h1 .swap{display:inline-block;position:relative;color:var(--signal);
-  font-style:italic;min-width:2ch}
-.hero h1 .swap::after{content:"";position:absolute;left:0;right:0;bottom:.1em;
-  height:3px;background:var(--signal);opacity:.35}
-.glitch{animation:glitch .28s steps(2) 1}
-@keyframes glitch{0%{transform:translate(0,0);opacity:1}25%{transform:translate(-3px,1px);opacity:.72}
-  50%{transform:translate(2px,-2px);opacity:.9}75%{transform:translate(-1px,2px);opacity:.65}
-  100%{transform:translate(0,0);opacity:1}}
-.hero-cta{display:flex;gap:14px;flex-wrap:wrap;margin:32px 0 0}
-.hero-stats{display:flex;gap:34px;flex-wrap:wrap;margin:44px 0 0;padding:20px 0;
-  border-top:1px solid var(--line)}
-.hero-stats div{font-family:var(--mono);font-size:12px;color:var(--muted)}
-.hero-stats b{display:block;font-family:var(--serif);font-size:34px;color:var(--ink);
-  line-height:1;margin-bottom:4px}
+.hero h1{
+  font-family:var(--serif);font-size:clamp(38px,5.6vw,76px);
+  line-height:.94;letter-spacing:-.025em;margin:0 0 32px;
+  /* No max-width: `balance` already shortens the lines to even them out, so
+     capping the box as well made the headline render NARROWER than the
+     paragraph beneath it. Let it use the column and balance do the rest. */
+  text-wrap:balance;
+}
+.hero h1 .swap{
+  display:inline-block;position:relative;color:var(--signal);font-style:italic;
+}
+.hero h1 .swap::after{
+  content:"";position:absolute;left:0;right:0;bottom:.1em;height:3px;
+  background:var(--signal);opacity:.35;
+}
+/* The paragraph should sit clearly INSIDE the headline's width. Matching the
+   two edges is impossible (different faces and sizes, so different ch widths)
+   and a near-match reads as a mistake - a clear step in reads as intent. */
+.hero .lede{max-width:46ch}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap;margin:36px 0 0}
 
-.ticker{margin-top:56px;border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);
-  background:var(--acid);overflow:hidden;white-space:nowrap;padding:11px 0}
-.ticker-track{display:inline-flex;animation:slide 42s linear infinite}
-.ticker span{font-family:var(--mono);font-size:13px;font-weight:600;padding:0 22px}
-.ticker span::after{content:"→";margin-left:22px;opacity:.4}
-@keyframes slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
+/* ---------- sections ---------- */
 section{padding:84px 0}
 .section-head{margin-bottom:44px;max-width:60ch}
-.section-head h2{font-family:var(--serif);font-size:clamp(32px,5vw,54px);line-height:1;
-  letter-spacing:-.02em;margin:0 0 14px;text-wrap:balance}
+.section-head h2{
+  font-family:var(--serif);font-size:clamp(32px,5vw,54px);line-height:1;
+  letter-spacing:-.02em;margin:0 0 14px;
+}
 
-.why{display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
-.why > div{padding-left:20px}
-.why h3{font-family:var(--serif);font-size:26px;margin:0 0 10px}
-.why p{margin:0;color:#3A372F}
-
-.machine{border:2px solid var(--ink);background:var(--ink);color:var(--paper);
-  box-shadow:10px 10px 0 var(--signal);padding:36px 30px}
+/* ---------- the slot machine ---------- */
+.machine{
+  border:2px solid var(--ink);background:var(--ink);color:var(--paper);
+  box-shadow:10px 10px 0 var(--signal);padding:36px 30px;
+}
 .machine .kicker{color:#8F887A}
-.machine-out{font-family:var(--serif);font-size:clamp(28px,5.4vw,58px);line-height:1.02;
-  margin:6px 0 22px;min-height:1.9em;color:var(--acid)}
-.machine-doing{font-family:var(--mono);font-size:12.5px;color:#B9B2A2;line-height:2;
-  margin-bottom:26px;min-height:5.2em}
-.machine-doing i{font-style:normal;color:var(--paper);border-bottom:1px solid var(--signal)}
-.machine .btn{background:var(--acid);border-color:var(--acid);box-shadow:none;color:var(--ink)}
-.machine .btn:hover{transform:none;background:var(--paper);border-color:var(--paper)}
+.machine-out{
+  font-family:var(--serif);font-size:clamp(28px,5.4vw,58px);line-height:1.02;
+  margin:6px 0 22px;min-height:1.9em;color:var(--acid);
+}
 
+/* ---------- cards ---------- */
 .grid{display:grid;gap:22px;grid-template-columns:repeat(auto-fill,minmax(310px,1fr))}
-.card{position:relative;background:var(--paper);border:2px solid var(--ink);
+.card{
+  position:relative;background:var(--paper);border:2px solid var(--ink);
   padding:24px 22px 20px;text-decoration:none;display:flex;flex-direction:column;
-  transition:transform .14s ease,box-shadow .14s ease}
+  transition:transform .14s ease,box-shadow .14s ease;
+}
 .card:hover{transform:translate(-3px,-3px);box-shadow:7px 7px 0 var(--ink)}
-.card .was{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;
-  text-transform:uppercase;color:var(--signal);margin-bottom:9px}
+.card .was{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--signal);margin-bottom:9px;
+}
 .card h3{font-family:var(--serif);font-size:28px;line-height:1.05;margin:0 0 8px}
 .card .head{font-size:14.5px;color:#3A372F;margin:0 0 16px;line-height:1.5}
-.card .doing{font-family:var(--mono);font-size:11.5px;color:var(--muted);line-height:1.9;
-  margin-top:auto;padding-top:14px;border-top:1px dashed var(--line)}
-.stamp{position:absolute;top:-11px;right:16px;background:var(--acid);
-  border:2px solid var(--ink);font-family:var(--mono);font-size:10.5px;font-weight:700;
-  letter-spacing:.08em;padding:3px 9px;text-transform:uppercase}
+.card .doing{
+  font-family:var(--mono);font-size:11.5px;color:var(--muted);line-height:1.9;
+  margin-top:auto;padding-top:14px;border-top:1px dashed var(--line);
+}
+.stamp{
+  position:absolute;top:-11px;right:16px;background:var(--acid);
+  border:2px solid var(--ink);font-family:var(--mono);font-size:10.5px;
+  font-weight:700;letter-spacing:.08em;padding:3px 9px;text-transform:uppercase;
+}
 .stamp.hire{background:var(--signal);color:#fff}
 
-footer{border-top:2px solid var(--ink);margin-top:0;padding:40px 0 60px;
-  font-family:var(--mono);font-size:12px;color:var(--muted)}
-.foot-row{display:flex;gap:26px;flex-wrap:wrap;align-items:center}
+/* ---------- profile page ---------- */
+.dossier{border:2px solid var(--ink);background:var(--paper);box-shadow:var(--shadow)}
+.dossier-head{padding:34px 32px 28px;border-bottom:2px solid var(--ink)}
+.dossier-head h1{font-family:var(--serif);font-size:clamp(38px,7vw,72px);line-height:.95;margin:6px 0 12px}
+.transition{
+  display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+  font-family:var(--mono);font-size:13px;margin:18px 0 0;
+}
+.transition .was{background:var(--ink);color:var(--paper);padding:5px 11px}
+.transition .arrow{color:var(--signal);font-size:19px}
+.transition .now{background:var(--acid);border:1.5px solid var(--ink);padding:5px 11px}
+.dossier-body{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.field{padding:26px 32px;border-bottom:1px solid var(--line)}
+.field:nth-child(odd){border-right:1px solid var(--line)}
+.field h4{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--muted);margin:0 0 12px;font-weight:600;
+}
+.field p{margin:0;font-size:16px;line-height:1.6}
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chip{
+  font-family:var(--mono);font-size:11.5px;border:1.5px solid var(--ink);
+  padding:4px 10px;background:var(--paper-2);
+}
+.chip.on{background:var(--acid)}
+.score{
+  display:flex;align-items:baseline;gap:12px;font-family:var(--serif);
+}
+.score b{font-size:66px;line-height:1;color:var(--signal)}
+.score-bar{display:flex;gap:3px;margin-top:12px}
+.score-bar i{width:16px;height:9px;border:1.5px solid var(--ink);background:transparent}
+.score-bar i.on{background:var(--signal)}
 
+/* ---------- forms ---------- */
+form label{
+  display:block;font-family:var(--mono);font-size:11px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--muted);margin:0 0 8px;font-weight:600;
+}
+.help{font-family:var(--sans);font-size:13px;color:var(--muted);
+  text-transform:none;letter-spacing:0;margin:-4px 0 10px;font-weight:400}
+input[type=text],input[type=email],input[type=url],textarea,select{
+  width:100%;font-family:var(--sans);font-size:16px;color:var(--ink);
+  background:var(--paper);border:2px solid var(--ink);padding:12px 14px;
+  border-radius:0;-webkit-appearance:none;appearance:none;
+}
+select{background-image:linear-gradient(45deg,transparent 50%,var(--ink) 50%),
+  linear-gradient(135deg,var(--ink) 50%,transparent 50%);
+  background-position:calc(100% - 19px) 20px,calc(100% - 13px) 20px;
+  background-size:6px 6px,6px 6px;background-repeat:no-repeat;padding-right:40px}
+input:focus,textarea:focus,select:focus{outline:3px solid var(--signal);outline-offset:1px}
+textarea{min-height:110px;resize:vertical;line-height:1.55}
+.fieldset{margin:0 0 34px;border:0;padding:0}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.pick{display:flex;flex-wrap:wrap;gap:9px}
+.pick input{position:absolute;opacity:0;width:0;height:0}
+.pick label{
+  margin:0;text-transform:none;letter-spacing:0;font-family:var(--mono);
+  font-size:12.5px;color:var(--ink);border:2px solid var(--ink);
+  padding:8px 13px;cursor:pointer;background:var(--paper);
+  transition:background .1s ease;
+}
+.pick label:hover{background:var(--paper-2)}
+.pick input:checked + label{background:var(--acid);box-shadow:3px 3px 0 var(--ink)}
+.pick input:focus-visible + label{outline:3px solid var(--signal)}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.errors{
+  border:2px solid var(--signal);background:#FFEDE7;padding:16px 20px;margin:0 0 28px;
+}
+.errors p{margin:0 0 6px;font-size:14.5px}
+.errors p:last-child{margin:0}
+
+/* ---------- filters ---------- */
+.filters{
+  display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;
+  padding:22px;border:2px solid var(--ink);background:var(--paper-2);margin-bottom:34px;
+}
+.filters > div{flex:1 1 180px}
+.filters label{margin-bottom:6px}
+.filters select,.filters input{font-size:14px;padding:9px 12px}
+
+/* ---------- misc ---------- */
+.note{
+  border-left:3px solid var(--signal);padding:2px 0 2px 16px;
+  font-size:14.5px;color:#3A372F;
+}
+.empty{
+  border:2px dashed var(--line);padding:56px 30px;text-align:center;
+}
+.empty h3{font-family:var(--serif);font-size:30px;margin:0 0 10px}
+.banner{
+  background:var(--acid);border:2px solid var(--ink);padding:16px 20px;
+  margin-bottom:28px;font-family:var(--mono);font-size:13.5px;
+}
+footer{
+  border-top:2px solid var(--ink);margin-top:60px;padding:40px 0 60px;
+  font-family:var(--mono);font-size:12px;color:var(--muted);
+}
+footer a{color:var(--ink)}
+.foot-row{display:flex;gap:26px;flex-wrap:wrap;align-items:center}
+.foot-row .sp{margin-left:auto}
+
+/* ---------- responsive ---------- */
 @media (max-width:760px){
-  #driftCanvas{opacity:.22}
+  .dossier-body{grid-template-columns:1fr}
+  .field:nth-child(odd){border-right:0}
+  .row{grid-template-columns:1fr}
   section{padding:56px 0}
   .hero{padding-top:44px}
 }
+
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;
     transition-duration:.001ms!important}
 }
-</style>
 
-<div class="strip">
-  Design preview &middot; the built site &mdash; with working profiles, search and
-  hire-me messaging &mdash; deploys to ihavenoideawhatidoanymore.com
-</div>
+</style>
 
 <header class="top">
   <div class="wrap">
@@ -146,102 +280,39 @@ footer{border-top:2px solid var(--ink);margin-top:0;padding:40px 0 60px;
 </header>
 
 <div class="hero" id="top">
-  <canvas id="driftCanvas" aria-hidden="true"></canvas>
   <div class="wrap">
-    <p class="kicker">A directory of people whose job titles stopped working</p>
+    <p class="kicker">The platform for forward-deployed operators</p>
     <h1>I have no idea what I <span class="swap">do</span> anymore.</h1>
+
     <p class="lede">
-      You used to be a lawyer. Or a CMO. Or in sales. Something specific,
-      something you could say at a dinner party. Then you got good at this,
-      and the edges dissolved, and now you ship software on Tuesday and
-      run the numbers on Wednesday and nobody has a word for that yet.
+      Companies are not adjusting to the pace of AI while talent and skills are
+      changing. People who now hold two roles &mdash; theirs, and AI &mdash; are
+      confused. There are no specific opportunities for forward-deployed
+      marketing, finance, operations or supply chain people. Some would say:
+      I have no idea what I do anymore.
     </p>
+
     <p class="lede" style="margin-top:18px">
-      This is where those people are. The rest of the world will catch up
-      eventually. Until then, we can hire each other.
+      Well &mdash; while the rest of the world catches up, now you have a place to
+      meet, and maybe even hire each other.
     </p>
+
     <div class="hero-cta">
       <a class="btn btn-signal" href="#directory">Add yourself &rarr;</a>
       <a class="btn" href="#directory">See who's here</a>
     </div>
-    <div class="hero-stats">
-      <div><b>6</b>plural people</div>
-      <div><b>5.7</b>average things done per person</div>
-      <div><b>0</b>agreed job titles</div>
-    </div>
-  </div>
-  <div class="ticker" aria-hidden="true">
-    <div class="ticker-track" id="tickerTrack"></div>
   </div>
 </div>
-
-<section>
-  <div class="wrap">
-    <div class="section-head">
-      <p class="kicker">What happened</p>
-      <h2>The job didn't disappear. It multiplied.</h2>
-    </div>
-    <div class="why">
-      <div style="border-left:3px solid var(--signal)">
-        <h3>You learned to build</h3>
-        <p>Not in a bootcamp. On a Sunday, out of impatience. The thing you used
-          to brief an agency for took you an afternoon, and something in your
-          head permanently rearranged itself.</p>
-      </div>
-      <div style="border-left:3px solid var(--blue)">
-        <h3>The lanes stopped holding</h3>
-        <p>Legal, marketing, ops, engineering &mdash; those were containers for
-          scarce skills. When the skill stops being scarce, the container stops
-          meaning anything.</p>
-      </div>
-      <div style="border-left:3px solid var(--ink)">
-        <h3>Now you can't answer the question</h3>
-        <p>"So what do you do?" You have an honest answer and it takes four
-          minutes, so you give the dishonest one that takes four seconds and
-          feel slightly worse.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section style="padding-top:0">
-  <div class="wrap narrow">
-    <div class="machine" id="machine">
-      <p class="kicker">Job title generator &mdash; as good as any other</p>
-      <div class="machine-out">&hellip;</div>
-      <div class="machine-doing"></div>
-      <button class="btn" data-spin type="button">Give me another one</button>
-    </div>
-  </div>
-</section>
-
-<section style="background:var(--ink);color:var(--paper)">
-  <div class="wrap narrow" style="text-align:center">
-    <p class="kicker" style="color:#8F887A">The actual point</p>
-    <h2 style="font-family:var(--serif);font-size:clamp(34px,6vw,62px);line-height:1;
-               margin:0 0 22px;text-wrap:balance">
-      We're early. That's lonely, and it's also
-      <span style="color:var(--acid);font-style:italic">an advantage</span>.
-    </h2>
-    <p class="lede" style="color:#C9C2B2;margin:0 auto 30px">
-      Most hiring still runs on job titles, so it can't see you. It'll take
-      years to fix. In the meantime the people who <em>can</em> see you are the
-      other people it can't see. So put yourself somewhere findable, and when
-      you need someone who does four jobs at once, look here first.
-    </p>
-    <a class="btn btn-acid" href="#directory">Put yourself in the directory</a>
-  </div>
-</section>
 
 <section id="directory">
   <div class="wrap">
     <div class="section-head">
-      <p class="kicker">Recently confused</p>
+      <p class="kicker">Just arrived</p>
       <h2>The most recent arrivals</h2>
       <p class="lede" style="font-size:17px">
         These six are invented, to show the shape of a profile. On the live site
-        this fills with real people, filterable by the job they used to have and
-        whether they're taking work.
+        this fills with real people, filterable by job title, by what they also
+        do, and by whether they're taking work.
       </p>
     </div>
     <div class="grid" id="cards"></div>
@@ -250,164 +321,102 @@ footer{border-top:2px solid var(--ink);margin-top:0;padding:40px 0 60px;
 
 <footer>
   <div class="wrap foot-row">
-    <span>ihavenoideawhatidoanymore.com</span>
-    <span style="margin-left:auto">No one's email address is published here.</span>
+    <span>www.ihavenoideawhatidoanymore.com</span>
+    <span style="margin-left:auto">Looking for someone? <a href="mailto:jen@attent10n.ai">jen@attent10n.ai</a></span>
   </div>
 </footer>
 
 <script>
-(function(){
-  "use strict";
-  var reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  var FORMER = ["Lawyer","CMO","Salesperson","Management Consultant","Investment Banker",
-    "Journalist","Teacher","Doctor","Nurse","Academic","Accountant","Architect","Recruiter",
-    "Copywriter","Graphic Designer","Product Manager","Software Engineer","Data Analyst",
-    "Chef","Musician","Actor","Police Officer","Soldier","Civil Servant","Estate Agent",
-    "Therapist","Translator","Photographer","Retail Buyer","Founder",
-    "Something I can no longer explain"];
-  var STACK = ["Claude","ChatGPT","Gemini","Claude Code","Cursor","Copilot","Replit",
-    "Lovable","v0","n8n","Zapier","Make","Figma","Notion","Airtable","Supabase","Railway",
-    "Vercel","Python","SQL","Excel (still)","A notebook (paper)"];
-  var DOING = ["Ship software I never learned to write","Design things","Write things",
-    "Sell things","Build agents","Automate other people's jobs","Automate my own job",
-    "Clean data nobody else will touch","Do the research","Do the strategy","Do the finance",
-    "Do the legal","Do the hiring","Run the ops","Make the videos","Make the decks",
-    "Teach people this","Translate between humans and machines","Fix it when it breaks at 2am",
-    "Advise people older than me","Prototype in an afternoon","Say no to consultants"];
-  var PREFIX = ["Post-","Recovering ","Semi-retired ","Formerly-","Ex-","Reformed "];
-  var SUFFIX = ["-Adjacent Operator"," Who Now Ships Code"," Turned Systems Person",
-    " With A Terminal Open"," (Load-Bearing)"," At Large"];
-  var pick = function(a){ return a[Math.floor(Math.random()*a.length)]; };
-
-  /* ticker */
-  var track = document.getElementById("tickerTrack"), html = "";
-  for (var r=0;r<2;r++) for (var i=0;i<FORMER.length;i++) html += "<span>"+FORMER[i]+"</span>";
-  track.innerHTML = html;
-
-  /* cards */
-  var PEOPLE = [
-    {n:"Emeka Brannigan-Adeyemi",w:"Accountant",p:9,hire:1,
-     h:"Was an accountant. Now I do six jobs and the accounts are the easy one.",
-     d:["Do the finance","Run the ops","Automate my own job"],more:6},
-    {n:"Ingrid Solheim-Baptiste",w:"Teacher",p:4,hire:0,
-     h:"Taught Year 6 for fifteen years. Turns out that's excellent training for this.",
-     d:["Teach people this","Design things","Run the ops"],more:1},
-    {n:"Callum Ferreira-Nowak",w:"Journalist",p:5,hire:1,
-     h:"Newsroom refugee. Now somewhere between researcher, editor and engineer.",
-     d:["Write things","Do the research","Make the videos"],more:2},
-    {n:"Priyanka Raghunathan",w:"Salesperson",p:4,hire:1,
-     h:"Sold enterprise software for a decade. Now I build what I used to promise.",
-     d:["Sell things","Build agents","Clean data nobody else will touch"],more:1},
-    {n:"Tobias Vandermeer",w:"CMO",p:7,hire:1,
-     h:"Ran marketing for a £400m brand. Now mostly writes Python at midnight.",
-     d:["Do the strategy","Automate other people's jobs","Make the decks"],more:4},
-    {n:"Marguerite Okonjo-Bell",w:"Lawyer",p:5,hire:1,
-     h:"Ex-litigator who now builds the tools the firm refused to buy.",
-     d:["Ship software I never learned to write","Do the legal","Build agents"],more:2}
-  ];
-  document.getElementById("cards").innerHTML = PEOPLE.map(function(p){
-    return '<div class="card">'
-      + (p.hire ? '<span class="stamp hire">Available</span>'
-                : '<span class="stamp">'+p.p+'&times; plural</span>')
-      + '<div class="was">Formerly '+p.w+'</div>'
-      + '<h3>'+p.n+'</h3>'
-      + '<p class="head">'+p.h+'</p>'
-      + '<div class="doing">'
-      + p.d.map(function(x){return "&rsaquo; "+x;}).join("<br>")
-      + '<br><span style="opacity:.65">&rsaquo; &hellip;and '+p.more+' more</span>'
-      + '</div></div>';
-  }).join("");
-
-  /* headline that can't finish its own sentence */
-  var VERBS = ["do","am","sell","build","charge","owe","fix","am for","cost","count as"];
-  var swap = document.querySelector(".hero h1 .swap"), vi = 0;
-  if (swap && !reduced) setInterval(function(){
-    vi = (vi+1) % VERBS.length;
-    swap.classList.remove("glitch"); void swap.offsetWidth;
-    swap.textContent = VERBS[vi]; swap.classList.add("glitch");
-  }, 2600);
-
-  /* drifting words */
-  var canvas = document.getElementById("driftCanvas");
-  if (canvas && !reduced) {
-    var ctx = canvas.getContext("2d"), words = FORMER.concat(STACK);
-    var parts = [], dpr = Math.min(devicePixelRatio||1, 2), raf = null;
-    function size(){
-      var host = canvas.parentElement;
-      canvas.width = host.offsetWidth*dpr; canvas.height = host.offsetHeight*dpr;
-      canvas.style.width = host.offsetWidth+"px"; canvas.style.height = host.offsetHeight+"px";
-      ctx.setTransform(dpr,0,0,dpr,0,0);
-    }
-    function seed(){
-      parts = [];
-      var w = canvas.width/dpr, h = canvas.height/dpr;
-      var n = Math.max(10, Math.min(26, Math.round(w/52)));
-      for (var i=0;i<n;i++) parts.push({
-        text:pick(words), x:Math.random()*w, y:Math.random()*h,
-        vx:(Math.random()-.5)*.28, vy:(Math.random()-.5)*.16,
-        size:11+Math.random()*15, alpha:.06+Math.random()*.16,
-        life:300+Math.random()*900
-      });
-    }
-    function frame(){
-      var w = canvas.width/dpr, h = canvas.height/dpr;
-      ctx.clearRect(0,0,w,h);
-      for (var i=0;i<parts.length;i++){
-        var p = parts[i];
-        p.x+=p.vx; p.y+=p.vy; p.life-=1;
-        if (p.x<-240) p.x=w+40; if (p.x>w+240) p.x=-40;
-        if (p.y<-30) p.y=h+20;  if (p.y>h+30) p.y=-20;
-        if (p.life<=0){ p.text=pick(words); p.life=300+Math.random()*900;
-                        p.alpha=.06+Math.random()*.16; }
-        var fade = p.life<60 ? p.life/60 : 1;
-        ctx.font = '600 '+p.size+'px "IBM Plex Mono", monospace';
-        ctx.fillStyle = "rgba(18,17,15,"+(p.alpha*fade)+")";
-        ctx.fillText(p.text, p.x, p.y);
-      }
-      raf = requestAnimationFrame(frame);
-    }
-    size(); seed(); frame();
-    var t=null;
-    addEventListener("resize", function(){ clearTimeout(t);
-      t=setTimeout(function(){ size(); seed(); },180); });
-    document.addEventListener("visibilitychange", function(){
-      if (document.hidden){ cancelAnimationFrame(raf); raf=null; } else if (!raf) frame();
-    });
-  }
-
-  /* slot machine */
-  var machine = document.getElementById("machine");
-  var out = machine.querySelector(".machine-out");
-  var doing = machine.querySelector(".machine-doing");
-  var btn = machine.querySelector("[data-spin]");
-  var busy = false;
-  function three(){
-    var c = DOING.slice(), o = [];
-    for (var i=0;i<3;i++) o.push(c.splice(Math.floor(Math.random()*c.length),1)[0]);
-    return o;
-  }
-  function spin(){
-    if (busy) return;
-    busy = true; btn.disabled = true; doing.innerHTML = "";
-    var title = pick(PREFIX) + pick(FORMER) + pick(SUFFIX), list = three();
-    function reveal(){
-      list.forEach(function(line, idx){
-        setTimeout(function(){
-          var row = document.createElement("div");
-          row.innerHTML = "&rsaquo; <i>"+line+"</i>";
-          doing.appendChild(row);
-        }, reduced ? 0 : 160*idx);
-      });
-      setTimeout(function(){ busy=false; btn.disabled=false; }, reduced ? 0 : 700);
-    }
-    if (reduced){ out.textContent = title; reveal(); return; }
-    var i = 0, tick = setInterval(function(){
-      out.textContent = pick(FORMER);
-      if (++i >= 16){ clearInterval(tick); out.textContent = title; reveal(); }
-    }, 55);
-  }
-  btn.addEventListener("click", spin);
-  spin();
-})();
+var PEOPLE = [
+ {
+  "n": "Priyanka Raghunathan",
+  "w": "Head of Retention",
+  "p": 5,
+  "hire": 1,
+  "h": "Still owns retention. Now also builds the flows she used to brief out.",
+  "d": [
+   "Build the flows I used to brief out",
+   "Make messy data usable",
+   "Build agents"
+  ],
+  "more": 2
+ },
+ {
+  "n": "Tobias Vandermeer",
+  "w": "CMO",
+  "p": 7,
+  "hire": 1,
+  "h": "Runs marketing for a \u00a3400m brand. Also prototypes the product now.",
+  "d": [
+   "Prototype the product myself",
+   "Do the strategy",
+   "Write the AI strategy"
+  ],
+  "more": 4
+ },
+ {
+  "n": "Emeka Brannigan-Adeyemi",
+  "w": "CFO",
+  "p": 9,
+  "hire": 1,
+  "h": "Still signs off the accounts. Also runs finance from a terminal.",
+  "d": [
+   "Run finance from the terminal",
+   "Make messy data usable",
+   "Automate my own job"
+  ],
+  "more": 6
+ },
+ {
+  "n": "Callum Ferreira-Nowak",
+  "w": "CEO",
+  "p": 5,
+  "hire": 1,
+  "h": "Runs a 40-person company. Also built the second brain it runs on.",
+  "d": [
+   "Build my own second brain",
+   "Write the AI strategy",
+   "Do the research"
+  ],
+  "more": 2
+ },
+ {
+  "n": "Marguerite Okonjo-Bell",
+  "w": "Lawyer",
+  "p": 5,
+  "hire": 1,
+  "h": "Still practising. Also builds the tools the firm refused to buy.",
+  "d": [
+   "Do the legal",
+   "Ship software I never learned to write",
+   "Build agents"
+  ],
+  "more": 2
+ },
+ {
+  "n": "Ingrid Solheim-Baptiste",
+  "w": "Teacher",
+  "p": 4,
+  "hire": 0,
+  "h": "Fifteen years teaching Year 6. Turns out that's excellent training for this.",
+  "d": [
+   "Teach people this",
+   "Design things",
+   "Make the videos"
+  ],
+  "more": 1
+ }
+];
+document.getElementById("cards").innerHTML = PEOPLE.map(function (p) {
+  return '<div class="card">'
+    + (p.hire ? '<span class="stamp hire">Available</span>'
+              : '<span class="stamp">' + p.p + '&times; plural</span>')
+    + '<div class="was">' + p.w + ' &nbsp;+' + p.p + '</div>'
+    + '<h3>' + p.n + '</h3>'
+    + '<p class="head">' + p.h + '</p>'
+    + '<div class="doing">'
+    + p.d.map(function (x) { return "&rsaquo; " + x; }).join("<br>")
+    + (p.more ? '<br><span style="opacity:.65">&rsaquo; &hellip;and ' + p.more + ' more</span>' : '')
+    + '</div></div>';
+}).join("");
 </script>

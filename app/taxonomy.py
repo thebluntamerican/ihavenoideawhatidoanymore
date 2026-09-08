@@ -8,11 +8,18 @@ Everything else (the Plurality Score, the generated title, the filters)
 is derived from those two.
 """
 
-# --- Who you used to be -----------------------------------------------------
-# Deliberately specific. "Lawyer" lands; "professional services" does not.
+# --- The job you still have -------------------------------------------------
+# Present tense, deliberately. Almost nobody here has left their job - they
+# added to it. The CMO is still the CMO; she also prototypes the product now.
+# This is the title on the email signature, not a past life.
 FORMER_LIVES = [
     "Lawyer",
+    "CEO",
     "CMO",
+    "CFO",
+    "COO",
+    "Head of Retention",
+    "Marketing Manager",
     "Salesperson",
     "Management Consultant",
     "Investment Banker",
@@ -27,48 +34,51 @@ FORMER_LIVES = [
     "Copywriter",
     "Graphic Designer",
     "Product Manager",
+    "Operations Manager",
     "Software Engineer",
     "Data Analyst",
     "Chef",
     "Musician",
     "Actor",
-    "Police Officer",
-    "Soldier",
     "Civil Servant",
     "Estate Agent",
     "Therapist",
-    "Translator",
     "Photographer",
     "Retail Buyer",
     "Founder",
-    "Something I can no longer explain",
+    "Something with no clean name",
 ]
 
-# --- What you actually do now -----------------------------------------------
-# Verbs, not titles. Titles are the thing that broke.
+# --- What you added on top of it --------------------------------------------
+# The things that are NOT in the job description. Verbs, and specific ones -
+# "builds the flows she used to brief out" is the whole idea in one line.
 NOW_DOING = [
+    "Build the flows I used to brief out",
+    "Prototype the product myself",
     "Ship software I never learned to write",
-    "Design things",
-    "Write things",
-    "Sell things",
+    "Run finance from the terminal",
+    "Write the AI strategy",
+    "Build my own second brain",
     "Build agents",
-    "Automate other people's jobs",
+    "Automate the repetitive stuff",
     "Automate my own job",
-    "Clean data nobody else will touch",
+    "Make messy data usable",
     "Do the research",
     "Do the strategy",
-    "Do the finance",
     "Do the legal",
     "Do the hiring",
     "Run the ops",
+    "Design things",
+    "Write things",
+    "Sell things",
     "Make the videos",
     "Make the decks",
     "Teach people this",
     "Translate between humans and machines",
-    "Fix it when it breaks at 2am",
-    "Advise people older than me",
+    "Fix it when it breaks",
+    "Advise people who've done it longer",
     "Prototype in an afternoon",
-    "Say no to consultants",
+    "Build it instead of buying it",
 ]
 
 # --- The tools you actually have open ---------------------------------------
@@ -98,7 +108,7 @@ HIREABLE = {
 
 
 def plurality_score(now_doing):
-    """How many distinct things this person does. The whole joke, quantified.
+    """How many things this person does BEYOND the job title. The joke, quantified.
 
     Capped at 10 so nobody wins by ticking every box, and floored at 1 so
     nobody reads as a zero.
@@ -107,13 +117,13 @@ def plurality_score(now_doing):
 
 
 PLURALITY_LABELS = [
-    (1, "Monogamous", "You still have a job title. Enjoy it while it lasts."),
-    (2, "Dabbling", "The edges are starting to blur."),
-    (3, "Slashie", "You now need a slash in your job title."),
-    (4, "Unclassifiable", "HR has stopped trying to categorise you."),
-    (5, "Fully Plural", "You are several people in a trench coat."),
+    (1, "Focused", "One thing, done properly. Nothing wrong with that."),
+    (2, "Two-Track", "The edges have started to blur."),
+    (3, "Slashie", "Your job title now needs a slash in it."),
+    (4, "Multi-Tool", "Whatever the week needs, you can be it."),
+    (5, "Fully Plural", "Five jobs, one person, no good word for it yet."),
     (7, "Load-Bearing", "If you stopped, three departments would notice."),
-    (9, "Feral", "There is no org chart that contains you."),
+    (9, "Whole Department", "No org chart fits you. That's their problem, not yours."),
 ]
 
 
@@ -128,9 +138,10 @@ def plurality_label(score):
 
 # Fragments used to mint an absurd-but-accurate job title from a profile.
 TITLE_PREFIX = [
-    "Post-", "Recovering ", "Semi-retired ", "Formerly-", "Ex-", "Reformed ",
+    "Full-Stack ", "Hybrid ", "Multi-Threaded ", "Second-Act ",
+    "Composite ", "Unclassifiable ",
 ]
 TITLE_SUFFIX = [
-    "-Adjacent Operator", " Who Now Ships Code", " Turned Systems Person",
-    " With A Terminal Open", " (Load-Bearing)", " At Large",
+    " Who Also Ships Code", " With A Terminal Open", " (Load-Bearing)",
+    " And Four Other Jobs", " Turned Systems Thinker", " At Large",
 ]
