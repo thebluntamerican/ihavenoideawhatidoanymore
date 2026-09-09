@@ -1,10 +1,19 @@
 # ihavenoideawhatidoanymore.com
 
-A directory of plural people: you had one very specific job, then you got good
-at AI, and now you do six things and none of them fit on a business card.
+**The platform for forward-deployed operators.**
 
-People add a profile, say what they used to be and what they actually do now,
-and can be contacted about work without publishing their email address.
+A directory of people who added AI to a job they still have — the CMO who now
+prototypes the product, the CFO running finance from a terminal, the retention
+lead building the flows she used to brief out. Companies haven't restructured
+around these people, so there is nowhere obvious for them to find each other.
+
+Members post a profile, say what they also do on top of the job, and can be
+contacted about work without publishing their email address.
+
+**Live:** https://www.ihavenoideawhatidoanymore.com
+
+**Picking this up cold? Read [`docs/handoff-2026-09-09.md`](docs/handoff-2026-09-09.md) first** — it
+carries the settled positioning and the traps that cost real time.
 
 ## Run it locally
 
@@ -48,11 +57,13 @@ launch or messages will silently fail to deliver.
 app/
   main.py       routes, validation, spam defence
   db.py         SQLAlchemy models; SQLite locally, Postgres in production
-  taxonomy.py   the vocabulary of the site - former lives, what people do now,
-                the plurality score. Edit this first; everything derives from it.
+  taxonomy.py   the vocabulary of the site - job titles, what people add on
+                top, the plurality score. Edit this first; everything derives
+                from it. NB `former_life` holds the CURRENT job title; the name
+                is historical and kept to avoid a migration.
   mailer.py     Resend relay, falls back to console logging
   templates/    Jinja2
-  static/       one stylesheet, one script
+  static/       one stylesheet (there is no JavaScript)
 docs/
   video-scripts.md   three films, shot by shot
 seed.py         six invented example profiles for local development
@@ -72,7 +83,7 @@ edit access, which the page says plainly.
 survives so an accidental click is recoverable from the database.
 
 **The plurality score is derived, never entered.** It's the count of things
-someone ticked, capped at 10. It means nothing, which is the joke, but it gives
+someone ticked BEYOND their job title, capped at 10. It means nothing, which is the joke, but it gives
 every profile a headline number and makes the cards scannable.
 
 **Spam defence is deliberately light**: a honeypot field plus a per-IP rate
